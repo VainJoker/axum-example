@@ -1,0 +1,25 @@
+syntax = "proto3";
+package rpc_error;
+
+option swift_prefix = "RpcError";
+
+// all error related data structure
+
+// Application error definition
+message RpcError {
+  // Error code, shall be 1:1 mapping with `error` crate
+  RpcErrorCode code = 1;
+
+  // Error message
+  string message = 2;
+}
+
+// error code
+enum RpcErrorCode {
+  Ok = 0;
+  // converted errors
+  ProstDecodeError = 2000;
+  ProstEncodeError = 2001;
+  // Others
+  Other = 9999;
+}

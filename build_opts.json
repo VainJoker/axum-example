@@ -1,0 +1,51 @@
+{
+    "includes": [
+        "./protobuf"
+    ],
+    "files": [
+        "./protobuf/rpc_error.proto"
+    ],
+    "output": "src/abi/pb",
+    "opts": [
+        {
+            "scope": "type",
+            "description": "serde support for message",
+            "attr": "#[derive(serde::Serialize, serde::Deserialize)]\n#[serde(default)]",
+            "paths": [
+                "RpcError"
+            ]
+        },
+        {
+            "scope": "type",
+            "description": "serde support for enum",
+            "attr": "#[derive(serde::Serialize, serde::Deserialize)]\n#[serde(rename_all = \"lowercase\")]",
+            "paths": [
+                "rpc_error.RpcErrorCode"
+            ]
+        },
+        {
+            "scope": "field",
+            "description": "skip string default values",
+            "attr": "#[serde(skip_serializing_if = \"String::is_empty\", default)]",
+            "paths": []
+        },
+        {
+            "scope": "field",
+            "description": "skip null values",
+            "attr": "#[serde(deserialize_with = \"crate::deserialize_null_default\")]",
+            "paths": []
+        },
+        {
+            "scope": "field",
+            "description": "skip 0 for integer",
+            "attr": "#[serde(skip_serializing_if = \"crate::is_zero\")]",
+            "paths": []
+        },
+        {
+            "scope": "field",
+            "description": "skip the field for serialization",
+            "attr": "#[serde(skip_serializing)]",
+            "paths": []
+        }
+    ]
+}
